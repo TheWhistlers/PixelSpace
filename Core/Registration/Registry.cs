@@ -15,6 +15,7 @@ public class Registry
     public static RegistryTable<BlockPrototype> BLOCK { get; set; } = new RegistryTable<BlockPrototype>();
     public static RegistryTable<Tag> TAG { get; set; } = new RegistryTable<Tag>();
     public static RegistryTable<Language> LANG { get; set; } = new RegistryTable<Language>();
+    public static RegistryTable<AbstractPlanet> PLANET { get; set; } = new RegistryTable<AbstractPlanet>();
 
     public static void Register<U>(RegistryTable<U> table, U target) =>
         table.Contents.Add(target);

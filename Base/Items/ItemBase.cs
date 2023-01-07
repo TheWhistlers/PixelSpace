@@ -5,25 +5,21 @@ using UnityEngine;
 
 public class ItemBase
 {
-    public string Prefix { get; set; }
-    public string Name { get; set; }
-    public string IndexName { get; set; }
+    public string DisplayName { get; set; }
+    public string KeyName { get; set; }
     public string Description { get; set; }
     public Sprite Texture { get; set; }
-    public ResourceLocation TextureLocation { get; set; }
     public int MaxStack { get; set; } = 1024;
     
     public ItemBase(string name, string prefix = "pixel")
     {
-        this.Prefix = prefix;
-        this.IndexName = $@"{this.Prefix}:{name}";
-        this.Name = Translator.Translate(GameManager.CurrentLanguage, this.IndexName); // need to translate into the correct language!
+        this.KeyName = $@"{prefix}:item.{name}";
+        this.DisplayName = Translator.Translate(GameManager.CurrentLanguage, this.KeyName); // need to translate into the correct language!
 
 
-        if (!string.IsNullOrEmpty(this.Name))
+        if (!string.IsNullOrEmpty(this.DisplayName))
         {
-            this.TextureLocation = new ResourceLocation($@"{Application.persistentDataPath}/games/resources/textures/items//{name}.png");
-            this.Texture = this.TextureLocation.LoadAsTexture();
+            this.Texture = new ResourceLocation($@"{Application.persistentDataPath}/games/resources/textures/items//{name}.png").LoadAsTexture();
         }
 
         Registry.Register(Registry.ITEM, this);
@@ -52,9 +48,9 @@ public class ItemBase
 
 public class Items
 {
-    public static readonly ItemBase TIN_INGOT = new ItemBase("tin_ingot");
-    public static readonly ItemBase COPPER_INGOT = new ItemBase("copper_ingot");
-    public static readonly ItemBase BRONZE_INGOT = new ItemBase("bronze_ingot");
+    public static readonly ItemBase TIN_INGOT = new ItemBase("tin_ingot").AddTag(Tags.METAL_INGOT);
+    public static readonly ItemBase COPPER_INGOT = new ItemBase("copper_ingot").AddTag(Tags.METAL_INGOT);
+    public static readonly ItemBase BRONZE_INGOT = new ItemBase("bronze_ingot").AddTag(Tags.METAL_INGOT);
     public static readonly ItemBase TIN_PLATE = new ItemBase("tin_plate");
     public static readonly ItemBase COPPER_PLATE = new ItemBase("copper_plate");
     public static readonly ItemBase BRONZE_PLATE = new ItemBase("bronze_plate");

@@ -1,17 +1,16 @@
-﻿using System.Reflection;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class Tag
 {
-    public string TagName { get; set; }
+    public string KeyName { get; set; }
     public List<ItemBase> Contents { get; set; } = new List<ItemBase>();
 
-    public Tag(string name)
+    public Tag(string keyName)
     {
-        this.TagName = name;
+        this.KeyName = keyName;
     }
 
     public void AddContent(ItemBase target) => this.Contents.Add(target);
@@ -20,11 +19,12 @@ public class Tag
         targets.ToList().ForEach(this.Contents.Add);
 
     public string GetDisplayName(Language language) => 
-        Translator.Translate(language, this.TagName);
+        Translator.Translate(language, this.KeyName);
 }
 
 public class Tags
 {
     public static readonly Tag WOOD = TagBuilder.Build("wood");
-    public static readonly Tag METAL = TagBuilder.Build("metal");
+    public static readonly Tag METAL_INGOT = TagBuilder.Build("metal.ingot");
+    public static readonly Tag METAL_PLATE= TagBuilder.Build("metal.plate");
 }

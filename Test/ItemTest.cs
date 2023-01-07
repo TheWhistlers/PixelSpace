@@ -26,7 +26,7 @@ public class ItemTest : MonoBehaviour
             var displayName = generated.transform.GetChild(1).gameObject.GetComponent<Text>();
             var displayTexture = generated.transform.GetChild(0).gameObject.GetComponent<Image>();
 
-            displayName.text = $"{toDisplays[i].Base.Name}: [ {toDisplays[i].Count} ]";
+            displayName.text = $"{toDisplays[i].Base.DisplayName}: [ {toDisplays[i].Count} ]";
             displayTexture.sprite = toDisplays[i].Base.Texture;
         }
     }
