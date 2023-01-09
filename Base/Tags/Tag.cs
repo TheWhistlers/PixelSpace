@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Tag
+public class Tag : INamed
 {
     public string KeyName { get; set; }
     public List<ItemBase> Contents { get; set; } = new List<ItemBase>();
@@ -17,9 +17,6 @@ public class Tag
 
     public void AddContents(params ItemBase[] targets) => 
         targets.ToList().ForEach(this.Contents.Add);
-
-    public string GetDisplayName(Language language) => 
-        Translator.Translate(language, this.KeyName);
 }
 
 public class Tags

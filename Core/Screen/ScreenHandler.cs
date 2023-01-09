@@ -14,6 +14,6 @@ public class PlayerScreenHandler : IScreenHandler
         renderer.CreateText("test_text",
             new Vector2(renderer.ScreenWidth / 2, renderer.ScreenHeight / 2),
             new Vector2(250f, 250f),
-            new TranslationalText("test_text"));
+            new StringText(Items.BRONZE_INGOT.GetDisplayName()));
     }
 }

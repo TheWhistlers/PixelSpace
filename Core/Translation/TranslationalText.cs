@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class TranslationalText : TextBase
+public class TranslationalText : StringText
 {
     public TranslationalText(string keyName) : base(keyName) { }
 
-    public string TranslatedText(Language language) =>
-        Translator.Translate(language, this.KeyName);
+    public override string GetTextContent() =>
+        Translator.Translate(GameManager.CurrentLanguage, this.text);
 }

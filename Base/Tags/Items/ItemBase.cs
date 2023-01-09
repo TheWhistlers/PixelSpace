@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ItemBase
+public class ItemBase : INamed
 {
-    public string DisplayName { get; set; }
+    public string ShortName { get; protected set; }
     public string KeyName { get; set; }
     public string Description { get; set; }
     public Sprite Texture { get; set; }
     public int MaxStack { get; set; } = 1024;
     
-    public ItemBase(string name, string prefix = "pixel")
+    public ItemBase(string keyName, string prefix = "pixel")
     {
-        this.KeyName = $@"{prefix}:item.{name}";
-        this.DisplayName = Translator.Translate(GameManager.CurrentLanguage, this.KeyName); // need to translate into the correct language!
+        this.KeyName = $@"{prefix}:item.{keyName}";
+        this.ShortName = keyName;
 
-
-        if (!string.IsNullOrEmpty(this.DisplayName))
+        if (!string.IsNullOrEmpty(this.KeyName))
         {
-            this.Texture = new ResourceLocation($@"{Application.persistentDataPath}/games/resources/textures/items//{name}.png").LoadAsTexture();
+            this.Texture = TextureManager.GetItemTexture(this.ShortName);
         }
 
         Registry.Register(Registry.ITEM, this);
@@ -36,6 +35,9 @@ public class ItemBase
         tags.ToList().ForEach(t => t.AddContent(this));
         return this;
     }
+
+    public virtual string GetDisplayName() => 
+        Translator.Translate(GameManager.CurrentLanguage, this.KeyName);
 
     public ItemStack AsStack() => new ItemStack(this, 1);
 
@@ -54,4 +56,6 @@ public class Items
     public static readonly ItemBase TIN_PLATE = new ItemBase("tin_plate");
     public static readonly ItemBase COPPER_PLATE = new ItemBase("copper_plate");
     public static readonly ItemBase BRONZE_PLATE = new ItemBase("bronze_plate");
+
+    public static void Inititalize() { }
 }

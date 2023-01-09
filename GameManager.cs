@@ -21,17 +21,27 @@ public class GameManager : MonoBehaviour
     public static Encoding UTF8 { get; set; } = new UTF8Encoding(false);
     public static string Persistent { get; set; }
     public static Language CurrentLanguage { get; set; }
-    public static string Prefix = "pixel";
+    public static LocalWorld CurrentWorld { get; set; }
+    public const string PREFIX = "pixel";
 
     private void Awake()
     {
+        Persistent = Application.persistentDataPath;
+
         if (instance != null)
             Destroy(gameObject);
         else
             instance = this;
 
-        Persistent = Application.persistentDataPath;
-        CurrentLanguage = Registry.LANG.Contents.Where(l => l.Name.Equals(SelectedLang)) as Language;
+        Languages.Inititalize();
+    }
+
+    private void Start()
+    {
+        Items.Inititalize();
+
+        CurrentLanguage = string.IsNullOrEmpty(SelectedLang) 
+            ? Languages.ZH_CN : Registry.LANG.GetByName(SelectedLang);
 
         new PlayerScreenHandler().Render(new ScreenRenderer(GameObject.Find("Canvas").GetComponent<Canvas>()));
     }

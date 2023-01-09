@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using LitJson;
 using UnityEngine;
 
 public class LocalWorld
 {
-    public Dictionary<AbstractPlanet, bool> PlanetLockings { get; set; }
-        = new Dictionary<AbstractPlanet, bool>();
+    protected Dictionary<string, bool> PlanetLockings = new Dictionary<string, bool>();
 
+    public PlayerEntity PlayerIn { get; set; }
 
+    public LocalWorld()
+    {
+        Registry.PLANET.Contents
+            .ForEach(planet => PlanetLockings.Add(planet.KeyName, false));
+    }
+
+    public bool IsPlanetUnLocked(string name) => this.PlanetLockings[name];
 }

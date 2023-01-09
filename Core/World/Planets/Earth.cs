@@ -7,5 +7,5 @@ public class Earth : AbstractPlanet
 {
     public Earth() : base("earth") { }
 
-    public override ClampRange GetTemperature() => new ClampRange(30f, 50f, -80f);
+    public override ClampedFloat GetTemperature() => new ClampedFloat(30f, 50f, -80f);
 }

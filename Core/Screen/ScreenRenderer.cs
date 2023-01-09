@@ -17,7 +17,7 @@ public class ScreenRenderer
         this.ScreenHeight = Mathf.RoundToInt(canvas.GetComponent<RectTransform>().sizeDelta.y);
     }
 
-    public Text CreateText(string name, Vector2 position, Vector2 rect, TranslationalText text)
+    public Text CreateText(string name, Vector2 position, Vector2 rect, StringText text)
     {
         var result = GameManager.Instantiate(GameManager.Instance.TextPrototype);
         result.transform.SetParent(this.TargetCanvas.transform);
@@ -25,7 +25,7 @@ public class ScreenRenderer
         result.name = name;
         result.GetComponent<RectTransform>().position = position;
         result.GetComponent<RectTransform>().sizeDelta = rect;
-        result.GetComponent<Text>().text = text.TranslatedText(GameManager.CurrentLanguage);
+        result.GetComponent<Text>().text = text.GetTextContent();
 
         return result.GetComponent<Text>();
     }
@@ -43,7 +43,7 @@ public class ScreenRenderer
         return result.GetComponent<Image>();
     }
 
-    public Button CreateButton(string name, Vector2 position, Vector2 rect, TranslationalText text, UnityAction callback)
+    public Button CreateButton(string name, Vector2 position, Vector2 rect, StringText text, UnityAction callback)
     {
         var result = GameManager.Instantiate(GameManager.Instance.ButtonPrototype);
         result.transform.SetParent(this.TargetCanvas.transform);
@@ -52,8 +52,23 @@ public class ScreenRenderer
         result.name = name;
         result.GetComponent<RectTransform>().position = position;
         result.GetComponent<RectTransform>().sizeDelta = rect;
-        label.GetComponent<Text>().text = text.TranslatedText(GameManager.CurrentLanguage);
+        label.GetComponent<Text>().text = text.GetTextContent();
         result.GetComponent<Button>().onClick.AddListener(callback);
+
+        return result.GetComponent<Button>();
+    }
+
+    public Button CreateCloseButton(string name, Vector2 position, Vector2 rect, StringText text)
+    {
+        var result = GameManager.Instantiate(GameManager.Instance.ButtonPrototype);
+        result.transform.SetParent(this.TargetCanvas.transform);
+        var label = result.transform.GetChild(0);
+
+        result.name = name;
+        result.GetComponent<RectTransform>().position = position;
+        result.GetComponent<RectTransform>().sizeDelta = rect;
+        label.GetComponent<Text>().text = text.GetTextContent();
+        result.GetComponent<Button>().onClick.AddListener(() => this.TargetCanvas.enabled = false);
 
         return result.GetComponent<Button>();
     }
