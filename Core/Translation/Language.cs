@@ -7,12 +7,14 @@ using UnityEngine;
 public class Language : INamed
 {
     public string KeyName { get; set; }
+    public string ShortName { get; set; }
     public string Description { get; set; }
     internal ResourceLocation LangFile { get; set; }
 
     public Language(string name, string description)
     {
         this.KeyName = name;
+        this.ShortName = name;
         this.Description = description;
 
         if (!string.IsNullOrEmpty(this.KeyName))

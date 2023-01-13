@@ -6,11 +6,13 @@ using UnityEngine;
 public class Tag : INamed
 {
     public string KeyName { get; set; }
+    public string ShortName { get; set; }
     public List<ItemBase> Contents { get; set; } = new List<ItemBase>();
 
     public Tag(string keyName)
     {
-        this.KeyName = keyName;
+        this.KeyName = $"tag.{keyName}";
+        this.ShortName = keyName;
     }
 
     public void AddContent(ItemBase target) => this.Contents.Add(target);

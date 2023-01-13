@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public GameObject TextPrototype, ButtonPrototype, ImagePrototype;
+    public GameObject TextPrototype, ButtonPrototype, ImagePrototype, SliderPrototype;
 
     public string SelectedLang;
     public static Encoding UTF8 { get; set; } = new UTF8Encoding(false);
@@ -34,15 +34,17 @@ public class GameManager : MonoBehaviour
             instance = this;
 
         Languages.Inititalize();
+        Items.Inititalize();
+        Blocks.Inititalize();
+        
+        //new PlayerScreenHandler().Render(new ScreenRenderer(GameObject.Find("player_movement_canvas").GetComponent<Canvas>()));
     }
 
     private void Start()
     {
-        Items.Inititalize();
-
         CurrentLanguage = string.IsNullOrEmpty(SelectedLang) 
             ? Languages.ZH_CN : Registry.LANG.GetByName(SelectedLang);
 
-        new PlayerScreenHandler().Render(new ScreenRenderer(GameObject.Find("Canvas").GetComponent<Canvas>()));
+        print(Registry.BLOCK.Contents.Count);
     }
 }

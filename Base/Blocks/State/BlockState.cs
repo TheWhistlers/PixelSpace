@@ -1,37 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LitJson;
+using UnityEngine;
 
 public class BlockState
 {
-    public BlockStateProperty Property { get; set; }
-}
+    public Dictionary<string, string> StateTable { get; set; } 
+        = new Dictionary<string, string>();
 
-public abstract class BlockStateProperty
-{
-    public string PropertyName { get; set; }
-}
+    public BlockState() { }
 
-public class StringBlockStateProperty : BlockStateProperty
-{
-    public string PropertyValue { get; set; }
-
-    public StringBlockStateProperty(string propertyName, string propertyValue)
+    public void SetState(string name, string value)
     {
-        this.PropertyName = propertyName;
-        this.PropertyValue = propertyValue;
+        if (!this.StateTable.ContainsKey(name))
+            throw new NullReferenceException($"property:'{name}' wasn't contained in current table");
+
+        this.StateTable[name] = value;
     }
-}
 
-public class NumberBlockStateProperty : BlockStateProperty
-{
-    public float PropertyValue { get; set; }
-
-    public NumberBlockStateProperty(string propertyName, float propertyValue)
+    public string GetState(string name)
     {
-        this.PropertyName = propertyName;
-        this.PropertyValue = propertyValue;
+        if (!this.StateTable.ContainsKey(name))
+            throw new NullReferenceException($"property:'{name}' wasn't contained in current table");
+        
+        return this.StateTable[name];
     }
+
+    public string ToJson() => JsonMapper.ToJson(this.StateTable);
 }

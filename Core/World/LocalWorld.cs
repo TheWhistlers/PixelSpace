@@ -13,7 +13,7 @@ public class LocalWorld
     public LocalWorld()
     {
         Registry.PLANET.Contents
-            .ForEach(planet => PlanetLockings.Add(planet.KeyName, false));
+            .ForEach(planet => PlanetLockings.Add(planet.ShortName, false));
     }
 
     public bool IsPlanetUnLocked(string name) => this.PlanetLockings[name];

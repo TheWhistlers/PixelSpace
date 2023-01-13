@@ -14,4 +14,9 @@ public class TextureManager
         new ResourceLocation(
             $@"{GameManager.Persistent}/games/resources/textures/blocks/{name}.png")
         .LoadAsTexture();
+
+    public static Sprite GetUITexture(string name) =>
+        new ResourceLocation(
+            $@"{GameManager.Persistent}/games/resources/textures/ui/{name}.png")
+        .LoadAsTexture();
 }

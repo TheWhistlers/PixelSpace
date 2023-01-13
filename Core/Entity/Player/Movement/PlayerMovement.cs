@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
-        MoveDirectionSlider = GameObject.Find("player_entity_movement_slider").GetComponent<Slider>();
+        MoveDirectionSlider = GameObject.Find("player_movement_slider").GetComponent<Slider>();
     }
 
     void FixedUpdate()

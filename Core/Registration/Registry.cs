@@ -13,7 +13,7 @@ public class Registry
         public RegistryTable(params T[] targets) => Contents.AddRange(targets);
 
         public T GetByName(string name) => 
-            this.Contents.Find(t => t.KeyName == name);
+            this.Contents.Find(t => t.ShortName.Equals(name));
     }
 
     static Registry() { }
