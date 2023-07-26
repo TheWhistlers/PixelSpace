@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Whistler.Enceladus.Algorithms;
 
 public class PlayerBuilding : MonoBehaviour
 {
@@ -22,18 +23,18 @@ public class PlayerBuilding : MonoBehaviour
 
     private void Build()
     {
-        var grid = GameObject.Find("GridMapTest").GetComponent<ItemTest>().Map;
+        var grid = ItemTest.Map;
         var hit = MouseManager.GetMouseRaycast();
 
-        if (hit.collider != null)
+
+        if (hit.collider != null && hit.collider.CompareTag("PlaceableGrid"))
         {
             var target = hit.collider.gameObject;
             grid.GetGridPosition(hit.transform.position, out int x, out int y);
-
-            if ((target.GetComponent<PlaceableGrid>().CanPlace()))
+            
+            if (grid.GetGrid(x, y).CanPlace())
             {
-                var toplace = target.GetComponent<PlaceableGrid>();
-                toplace.Place("iron_block");
+                var toplace = grid.GetGrid(x, y);
             }
         }
     }

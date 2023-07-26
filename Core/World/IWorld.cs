@@ -10,8 +10,8 @@ public interface IWorld
         return hit.transform.gameObject != null ? hit.transform.gameObject : null;
     }
 
-    public static void Generate(GameObject target, Vector3 position, Transform parent)
+    public static GameObject Generate(GameObject target, Vector3 position, Transform parent)
     {
-        GameObject.Instantiate(target, position, Quaternion.identity, parent);
+        return GameObject.Instantiate(target, position, Quaternion.identity, parent);
     }
 }

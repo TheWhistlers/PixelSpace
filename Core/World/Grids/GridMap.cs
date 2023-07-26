@@ -19,15 +19,20 @@ public class GridMap
         this.CellSize = cellSize;
         this.Blocks = new PlaceableGrid[width, height];
 
-        this.Cell = GameObject.Find("cell");
+        this.Cell = Resources.Load("cell") as GameObject;
         for (int x = 0; x < Blocks.GetLength(0); x++)
         {
             for (int y = 0; y < Blocks.GetLength(1); y++)
             {
-                IWorld.Generate(this.Cell, 
+                var cell = IWorld.Generate(this.Cell, 
                     GetWorldPosition(x, y) 
                     + new Vector3(this.CellSize, this.CellSize) * 0.5f, 
                     GameObject.Find("GridMapTest").transform);
+
+                cell.GetComponent<PlaceableGrid>().SetXY(x, y);
+                cell.transform.GetChild(1).GetComponent<TextMesh>().text = $"({x}, {y})";
+
+                this.Blocks[x, y] = cell.GetComponent<PlaceableGrid>();
             }
         }
     }
@@ -39,4 +44,7 @@ public class GridMap
         x = Mathf.FloorToInt((worldPosition - Vector3.zero).x / CellSize);
         y = Mathf.FloorToInt((worldPosition - Vector3.zero).y / CellSize);
     }
+
+    public PlaceableGrid GetGrid(int x, int y) =>
+        this.Blocks[x, y];
 }

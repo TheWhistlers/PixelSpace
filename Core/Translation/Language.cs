@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-public class Language : INamed
+public class Language : IIdentified
 {
     public string KeyName { get; set; }
     public string ShortName { get; set; }

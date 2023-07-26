@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Registry
 {
-    public class RegistryTable<T> where T : INamed
+    public class RegistryTable<T> where T : IIdentified
     {
         public List<T> Contents { get; set; } = new List<T>();
 
@@ -25,7 +25,7 @@ public class Registry
     public static RegistryTable<AbstractPlanet> PLANET { get; set; } = new RegistryTable<AbstractPlanet>();
     public static RegistryTable<MetalMaterial> METAL { get; set; } = new RegistryTable<MetalMaterial>();
 
-    public static void Register<U>(RegistryTable<U> table, U target) where U : INamed
+    public static void Register<U>(RegistryTable<U> table, U target) where U : IIdentified
     {
         table.Contents.Add(target);
     }

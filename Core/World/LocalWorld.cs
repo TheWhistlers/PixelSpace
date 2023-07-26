@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class LocalWorld
 {
-    protected Dictionary<string, bool> PlanetLockings = new Dictionary<string, bool>();
-
+    public string Name { get; set; }
+    public Dictionary<string, bool> PlanetLockings { get; protected set; }
+        = new Dictionary<string, bool>();
+    public List<GridMap> Sections { get; set; } = new List<GridMap>();
     public PlayerEntity PlayerIn { get; set; }
 
     public LocalWorld()

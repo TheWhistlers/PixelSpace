@@ -26,6 +26,12 @@ public class PlayerMovement : MonoBehaviour
     {
         Movement();
     }
+
+    void Update()
+    {
+        RaycastHelper.CreateMouseRaycast(transform.position);
+    }
+
     public void Movement()
     {
         RaycastHit2D hit = RaycastHelper.CreateRaycast(gameObject, new Vector2(0f, 0f), Vector2.down, 1.5f, Ground);

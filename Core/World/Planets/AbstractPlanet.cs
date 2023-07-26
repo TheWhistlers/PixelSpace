@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class AbstractPlanet : INamed
+public abstract class AbstractPlanet : IIdentified
 {
     public string KeyName { get; set; }
     public string ShortName { get; set; }
@@ -27,5 +27,7 @@ public abstract class AbstractPlanet : INamed
 
 public class Planets
 {
+    public static void Inititalize() {}
+
     public static readonly Earth EARTH = new Earth();
 }

@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class PlaceableGrid : MonoBehaviour
 {
-    public BlockPrototype Block;
+    public int x, y;
+    public BlockInstance Block = null;
     public float Temperature;
 
     public bool CanPlace() => this.Block == null;
 
-    public void Place(string name)
+    public void Place(BlockPrototype prototype)
     {
-        Block = Registry.BLOCK.GetByName(name);
-        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite 
-            = Block.Models["default"].Texture;
+        this.Block = BlockInstance.CreateInstance(prototype,
+            ItemTest.Map.GetWorldPosition(x, y));
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite
+            = Block.Prototype.Models["default"].Texture;
+
+        this.GetComponent<BoxCollider>().isTrigger =
+            this.Block.Prototype.IsTriggerCoillder;
+    }
+
+    public void Place(string name) => Place(Registry.BLOCK.GetByName(name));
+
+    internal void SetXY(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
     }
 }

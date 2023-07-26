@@ -13,5 +13,4 @@ public sealed class ExcavationLevel
         this.ExcavationTool = toolName;
         this.ExcavationMaterial = material;
     }
-
 }
